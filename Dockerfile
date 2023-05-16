@@ -20,6 +20,7 @@ RUN curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key a
     postgresql-client \
     redis-tools \
     lynis \
+    python3 \
     python3-pip \
     kubectl \
   && pip3 install --upgrade pip \
