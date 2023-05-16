@@ -5,6 +5,7 @@ RUN apt-get update \
     apt-transport-https \
     ca-certificates \
     curl \
+    tar \
     gnupg2 \
     software-properties-common \
     wget \
@@ -19,11 +20,17 @@ RUN curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key a
     postgresql-client \
     redis-tools \
     lynis \
+    python3 \
     python3-pip \
     kubectl \
- && pip3 install --upgrade pip \
- && pip3 install awscli --upgrade \
- && apt-get clean \
- && rm -rf /var/lib/apt/lists/*
+  && pip3 install --upgrade pip \
+  && pip3 install awscli --upgrade \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/*
+
+RUN curl -LJO https://github.com/casey/just/releases/download/1.13.0/just-1.13.0-aarch64-unknown-linux-musl.tar.gz \
+    && tar -xzf just-1.13.0-aarch64-unknown-linux-musl.tar.gz \
+    && mv just /usr/local/bin/ \
+    && rm just-1.13.0-aarch64-unknown-linux-musl.tar.gz
 
 CMD ["bash"]
