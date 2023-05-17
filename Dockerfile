@@ -23,8 +23,6 @@ RUN curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key a
     redis-tools \
     lynis \
     kubectl \
-  && pip3 install --upgrade pip \
-  && pip3 install awscli --upgrade \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
@@ -35,6 +33,11 @@ RUN curl -LJO https://github.com/casey/just/releases/download/1.13.0/just-1.13.0
     && curl -OL https://fastdl.mongodb.org/mongocli/mongocli_1.29.0_linux_arm64.tar.gz \ 
     && tar -xzf mongocli_1.29.0_linux_arm64.tar.gz \
     && mv mongocli_1.29.0_linux_arm64/bin/mongocli /usr/local/bin/ \
-    && rm mongocli_1.29.0_linux_arm64.tar.gz && rm -rf mongocli_1.29.0_linux_arm64/ 
+    && rm mongocli_1.29.0_linux_arm64.tar.gz && rm -rf mongocli_1.29.0_linux_arm64/ \
+    && curl "https://awscli.amazonaws.com/awscli-exe-linux-aarch64.zip" -o "awscliv2.zip" \
+    && unzip awscliv2.zip \
+    && ./aws/install
+
+COPY kits/ /kits/
 
 CMD ["bash"]
