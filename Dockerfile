@@ -12,6 +12,7 @@ RUN apt-get update \
     jq \
     unzip \
     vim \
+    less \
     python3 \
     python3-pip \
   && apt-get clean \
