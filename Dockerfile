@@ -19,12 +19,15 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/*
 RUN curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - \
   && echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list \
+  && wget -qO - https://www.mongodb.org/static/pgp/server-6.0.asc | apt-key add - \
+  && echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/6.0 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-6.0.list \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
     postgresql-client \
     redis-tools \
     lynis \
     kubectl \
+    mongodb-mongosh \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
