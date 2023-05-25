@@ -19,24 +19,19 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/*
 RUN curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - \
   && echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list \
+  && wget -qO - https://www.mongodb.org/static/pgp/server-6.0.asc | apt-key add - \
+  && echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/6.0 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-6.0.list \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
     postgresql-client \
     redis-tools \
     lynis \
     kubectl \
+    mongodb-mongosh \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
-RUN curl -LJO https://github.com/casey/just/releases/download/1.13.0/just-1.13.0-aarch64-unknown-linux-musl.tar.gz \
-    && tar -xzf just-1.13.0-aarch64-unknown-linux-musl.tar.gz \
-    && mv just /usr/local/bin/ \
-    && rm just-1.13.0-aarch64-unknown-linux-musl.tar.gz \
-    && curl -OL https://fastdl.mongodb.org/mongocli/mongocli_1.29.0_linux_arm64.tar.gz \ 
-    && tar -xzf mongocli_1.29.0_linux_arm64.tar.gz \
-    && mv mongocli_1.29.0_linux_arm64/bin/mongocli /usr/local/bin/ \
-    && rm mongocli_1.29.0_linux_arm64.tar.gz && rm -rf mongocli_1.29.0_linux_arm64/ \
-    && curl "https://awscli.amazonaws.com/awscli-exe-linux-aarch64.zip" -o "awscliv2.zip" \
+RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-aarch64.zip" -o "awscliv2.zip" \
     && unzip awscliv2.zip \
     && ./aws/install \
     && curl -sLO "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_Linux_arm64.tar.gz" \
