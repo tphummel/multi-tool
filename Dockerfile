@@ -28,6 +28,7 @@ RUN curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key a
     lynis \
     kubectl \
     mongodb-mongosh \
+    bats \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
